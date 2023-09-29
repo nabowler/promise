@@ -94,6 +94,8 @@ func You[T any](ctx context.Context) (Promise[T], Complete[T]) {
 // The Promise will block until Complete is called.
 // The first call to Complete will set the return value for the Promise.
 // Subsequent calls to Complete will no-op.
+// If the Context is done before complete, the default value for T
+// is returned and ctx.Err() will be ignored.
 func YouNoError[T any](ctx context.Context) (PromiseNoError[T], CompleteNoError[T]) {
 	// as above, so below (just without an error value to consider)
 	ch := make(chan T, 1)

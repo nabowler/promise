@@ -3,6 +3,8 @@ package promise_test
 import (
 	"context"
 	"net/http"
+	"os"
+	"strings"
 	"sync"
 	"testing"
 	"time"
@@ -113,9 +115,9 @@ func TestMeHTTPRequests(t *testing.T) {
 	if testing.Short() {
 		t.Skip("Skipping due to short flag")
 	}
-	// if !strings.EqualFold(os.Getenv("PROMISE_INT_TEST"), "true") {
-	// 	t.Skip("Skipping because PROMISE_INT_TEST is not set to true")
-	// }
+	if !strings.EqualFold(os.Getenv("PROMISE_INT_TEST"), "true") {
+		t.Skip("Skipping because PROMISE_INT_TEST is not set to true")
+	}
 
 	fn := func() (int, error) {
 		resp, err := http.Get("https://example.org/")
